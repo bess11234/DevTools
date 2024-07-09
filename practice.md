@@ -37,3 +37,7 @@ git clone https://username:<Token>@github.com/username/repo.git
 ```
 git clone https://username:<Token>@<URL ที่เริ่มที่ github.com>
 ```
+Token สามารถสร้างได้ที่ Github โดยต้อง
+```
+Settings -> Developer settings -> Personal access tokens -> Token (classic) -> Generate new token -> [repo -> admin:repo_hook] -> Generate token
+```
