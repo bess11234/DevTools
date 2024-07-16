@@ -49,6 +49,7 @@ Settings -> Developer settings -> Personal access tokens -> Token (classic) -> G
 
 # Week 2
 ใช้คำสั่ง git add เพื่อเปลี่ยนสถานะจาก **Untracked files** เป็น **Changes to be committed**
+เปลี่ยนจาก state **Working Directory** -> **Staging Area**
 ```bash
 git add <all_files>
 ```
@@ -57,6 +58,7 @@ git add <all_files>
 git add .
 ```
 เมื่อต้องการ Commit ลง github ให้ใช้คำสั่ง
+เปลี่ยนจาก state **Staging Area** > **Local Repository**
 ```bash
 git commit -m "Example"
 ```
@@ -83,6 +85,7 @@ git remote remove origin
 ```
 
 ถ้าต้องการอัพขึ้นไปยัง git ต้องใช้คำสั่ง
+ทำให้ข้อมูลใน state **Local Repository** เข้า git
 ```bash
 git push -u origin <branch> # -u จะทำให้ track branch ให้สามารถ git pull ได้เลย โดยจะเอาตามที่เคย git push -u ไป
 git push origin <branch> # ทำให้ git pull ต้องเลือก branch
