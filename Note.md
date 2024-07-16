@@ -56,6 +56,8 @@ git add .
 ```bash
 git commit -m "Example"
 ```
+`git commit` จะสร้างจุด Checkpoint ทำให้ย้อนเวลาได้
+
 ถ้าต้องการย้าย Branch ไป Branch ที่ต้องการ
 ```bash
 git branch -M <branch>
@@ -63,6 +65,11 @@ git branch -M <branch>
 ถ้าต้องการเชื่อม git เข้ากับ git init ต้องใช้คำสั่ง
 ```bash
 git remote add origin <REMOTE-URL>
+git remote add <name> <REMOTE-URL> # เปลี่ยน Branch นอกจาก origin ได้
+```
+ุถ้าต้องการเปลี่ยนชื่อ git repository ให้เป็นชื่ออื่นให้ใช้คำสั่ง
+```bash
+git remote rename <name-origin> <new-name>
 ```
 ถ้าต้องการอัพขึ้นไปยัง git ต้องใช้คำสั่ง
 ```bash
@@ -78,11 +85,18 @@ git push -u origin <branch>
 ```bash
 git fetch
 ```
-และเมื่อดึงเสร็จเราสามารถอัพเดท **local repository** ให้ตรงกับ Commit ล่าสุดให้ใช้คำสั่งนี้ หรือจริง ๆ สามารถใช้คำสั่งนี้เพื่อดึงข้อมูล Commit ได้เลยไม่ต้อง `git fetch`
+เมื่อต้องการให้อัพเดทข้อมูลไปยัง **Working Directory** จากที่ได้ดึงข้อมูลมาจากการใช้ `git fetch` ให้ใช้คำสั่ง
+```bash
+git merge
+```
+หรือ เมื่อดึงเสร็จเราสามารถอัพเดท **local repository** ให้ตรงกับ Commit ล่าสุดให้ใช้คำสั่งนี้ หรือจริง ๆ สามารถใช้คำสั่งนี้เพื่อดึงข้อมูล Commit ได้เลยไม่ต้อง `git fetch + git merge`
 ```bash
 git pull
 ```
-เมื่อต้องการเช็ค Branch ของ **git repository** ว่าล่าสุดหรือยังให้ใช้คำสั่ง
+เมื่อต้องการย้อนกลับไป ให้ข้อมูลเหมือน git repository ที่ remote อยู่ให้ใช้
 ```bash
 git checkout <branch>
+git checkout origin/main
 ```
+
+# Week 3
