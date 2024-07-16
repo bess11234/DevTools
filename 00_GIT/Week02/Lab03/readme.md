@@ -57,6 +57,8 @@ To demonstrate a scenario with Git involving fetching from a remote repository a
 
    ```
 
+![PNG](../practices/7.png)
+
 ### Fetching and Viewing Log in the Main Repository
 
 Now, back in the main repository, you would fetch the changes and view the log:

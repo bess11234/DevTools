@@ -38,6 +38,7 @@ To create a lab environment with Git, push three files to a remote repository, a
    ```bash
    git push -u origin master
    ```
+![PNG](../practices/5.png)
 
 7. **Make and Commit Changes Three Times**:
    
@@ -56,3 +57,5 @@ To create a lab environment with Git, push three files to a remote repository, a
    ```
 
 This workflow demonstrates a typical use case in Git for version control and tracking changes over time. 
+
+![PNG](../practices/6.png)
