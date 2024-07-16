@@ -106,6 +106,7 @@ git fetch
 เมื่อต้องการให้อัพเดทข้อมูลไปยัง **Working Directory** จากที่ได้ดึงข้อมูลมาจากการใช้ `git fetch` ให้ใช้คำสั่ง
 ```bash
 git merge
+git merge origin/main
 ```
 หรือ เมื่อดึงเสร็จเราสามารถอัพเดท **local repository** ให้ตรงกับ Commit ล่าสุดให้ใช้คำสั่งนี้ หรือจริง ๆ สามารถใช้คำสั่งนี้เพื่อดึงข้อมูล Commit ได้เลยไม่ต้อง `git fetch + git merge`
 ```bash
