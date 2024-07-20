@@ -42,16 +42,17 @@ Learn how to resolve a merge conflict in Git that occurs when changes in two bra
    git commit -m "Third commit on master"
    ```
 
- 3. Display the commit history:
+3. Display the commit history:
 
    ```
    cat conflict.txt
    ```
 
    check git log
-    
-    git log --oneline
-    
+   ```
+   git log --oneline
+   ```
+   ![PNG](../images/9.PNG)
 
 
 ### Task 3: Create `new_branch` and Add Commits
@@ -80,7 +81,7 @@ Learn how to resolve a merge conflict in Git that occurs when changes in two bra
 
   ### Task 4: add new commit in master branch
 
- 1. Switch back to the `master` branch and Add Alpha commit:
+1. Switch back to the `master` branch and Add Alpha commit:
 
   
    ```
@@ -95,18 +96,21 @@ Learn how to resolve a merge conflict in Git that occurs when changes in two bra
 
 
 
- 2. Display the commit history:
+2. Display the commit history:
 
 
    ```
    cat conflict.txt
    ```
+   ![PNG](../images/10.PNG)
 
    check git log
 
-    
-    git log --oneline
-    
+   ``` 
+   git log --oneline
+   ```
+   
+   ![PNG](../images/11.PNG)
     
 
 
@@ -126,18 +130,18 @@ Learn how to resolve a merge conflict in Git that occurs when changes in two bra
 
    A merge conflict will occur because of the incompatible changes.
 
-```
-<<<<<<< HEAD
-Line 1: This is the start of the document.
-Line 2: Additional line in master branch.
-Line 3: Further changes in master branch.
-Line Extra master : Add Alpha text 
-=======
-Line 1 (new branch): This line will cause a merge conflict.
-Line 2 (new branch): This is another conflicting line.
->>>>>>> new_branch
-
-```
+   ```
+   <<<<<<< HEAD
+   Line 1: This is the start of the document.
+   Line 2: Additional line in master branch.
+   Line 3: Further changes in master branch.
+   Line Extra master : Add Alpha text 
+   =======
+   Line 1 (new branch): This line will cause a merge conflict.
+   Line 2 (new branch): This is another conflicting line.
+   >>>>>>> new_branch
+   
+   ```
 
 
 3. Manually resolve the conflict by editing the file to keep the lines you want.

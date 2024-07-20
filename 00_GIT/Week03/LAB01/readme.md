@@ -30,6 +30,7 @@ Learn the basic Git workflow, including staging changes, making commits, and cre
    ```
    git status
    ```
+   ![PNG](./../images/1.PNG)
 2. Commit your staged change:
 
    ```bash
@@ -39,9 +40,9 @@ Learn the basic Git workflow, including staging changes, making commits, and cre
    ```
    git status
    ```
+   ![PNG](./../images/2.PNG)
 
-
- 3. git log check Head and history
+3. git log check Head and history
    ```bash
    git log --all --oneline 
    ```  
@@ -49,6 +50,7 @@ Learn the basic Git workflow, including staging changes, making commits, and cre
    ```bash
    git branch
    ```
+   ![PNG](./../images/3.PNG)
 
 ### Task 2: Commit "Add Line four" in master and Create and commit  new branch 
 
@@ -59,7 +61,7 @@ Learn the basic Git workflow, including staging changes, making commits, and cre
    git branch new_branch
    ```
   
-  Check the branch we are on
+   Check the branch we are on
    ```
    git branch
    ``` 
@@ -83,7 +85,7 @@ Learn the basic Git workflow, including staging changes, making commits, and cre
  
    display Readme.md
    ```
-    cat README.md
+   cat README.md
    ```
  
 
@@ -100,17 +102,18 @@ Learn the basic Git workflow, including staging changes, making commits, and cre
 
    display Readme.md
    ```
-    cat README.md
+   cat README.md
   ```
    
    check Head and history
 
     
     git log --all --oneline 
+   ![PNG](./../images/4.PNG)
     
 
    Commit new branch
-   ```
+   ```bash
    echo "This line is added in the feature branch." >> README.md
    git add README.md
    git commit -m "New branch commit"
@@ -126,7 +129,7 @@ Learn the basic Git workflow, including staging changes, making commits, and cre
    ```bash
    git log --all --oneline
    ```    
- 
+ ![alt text](./../images/5.PNG)
 
 ### Task 3: Add Experimental branch and Delete
 
@@ -143,10 +146,10 @@ check the branch we are on
 ```
 git branch
 ```
+![alt text](./../images/6.PNG)
 
 
-
-```
+```bash
 echo "This is experimental branch" >> README.md
 echo "Finall this branch will delete" >> README.md
 git add README.md
@@ -161,9 +164,9 @@ tell me if error
 ```
 git branch -d experimental
 ```
-
+![PNG](./../images/7.PNG)
 
 ```
 git branch -D experimental
 ```
-
+![PNG](./../images/8.PNG)

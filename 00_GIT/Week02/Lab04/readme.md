@@ -71,14 +71,14 @@ To gain hands-on experience and understanding of `git pull`, `git status`, `git 
    git pull
    ```
 
-![PNG](../practices/9.png)
+   ![PNG](../practices/9.png)
 
 2. Check the status to see the current state of your local repository.
    ```bash
    git status
    ```
 
-![PNG](../practices/10.png)
+   ![PNG](../practices/10.png)
 
 #### Task 5: Review Commit History
 1. Use `git log` to view the commit history.
@@ -86,7 +86,7 @@ To gain hands-on experience and understanding of `git pull`, `git status`, `git 
    git log --oneline
    ```
 
-![PNG](../practices/11.png)
+   ![PNG](../practices/11.png)
 
 #### Task 6: Explore Specific Commits
 1. Use `git checkout` to explore specific commits (optional, if exploration is needed).
@@ -97,14 +97,14 @@ To gain hands-on experience and understanding of `git pull`, `git status`, `git 
    ```
 กลับไปยัง Commit แรก
 
-![alt text](../practices/13.png)
+   ![alt text](../practices/13.png)
 
 กลับมา Commit ล่าสุด
 
-![alt text](../practices/14.png)
+   ![alt text](../practices/14.png)
 
 #### COMMIT-HASH
-![alt text](../practices/12.png)
+   ![alt text](../practices/12.png)
 
 ### Deliverables:
 1. **Step-by-Step Report**: Document each step, including the commands used and their outputs. Screenshots can be included to enhance the report.

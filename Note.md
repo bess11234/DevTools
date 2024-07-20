@@ -69,7 +69,7 @@ git commit -m "Example"
 git branch -M <branch>
 ```
 ถ้าต้องการเชื่อม git เข้ากับ git init ต้องใช้คำสั่ง
-```bash
+```python
 git remote add origin <REMOTE-URL>
 git remote add <name> <REMOTE-URL> # เปลี่ยน Branch นอกจาก origin ได้
 ```
@@ -86,7 +86,7 @@ git remote remove origin
 
 ถ้าต้องการอัพขึ้นไปยัง git ต้องใช้คำสั่ง
 ทำให้ข้อมูลใน state **Local Repository** เข้า git
-```bash
+```python
 git push -u origin <branch> # -u จะทำให้ track branch ให้สามารถ git pull ได้เลย โดยจะเอาตามที่เคย git push -u ไป
 git push origin <branch> # ทำให้ git pull ต้องเลือก branch
 ```
@@ -119,10 +119,41 @@ git pull
 ```bash
 git log
 ```
-เมื่อต้องการย้อนกลับไป ให้ข้อมูลเหมือน git repository ที่ remote อยู่ให้ใช้
+เมื่อต้องการย้อนกลับไป ให้ข้อมูลเหมือน git repository ที่ remote อยู่ให้ใช้ หรือไปที่ branch นั้น ๆ
 ```bash
 git checkout <branch>
 git checkout origin/main
+git checkout [COMMIT-HASH]
 ```
 
 # Week 3
+
+วิธีเช็คว่า Git repository มี branch อะไรบ้าง และดูได้ว่าเราอยู่ branch
+```bash
+git branch
+```
+และสามารถใช้เพื่อเพิ่ม branch ได้อีกด้วย
+```bash
+git branch <new_branch>
+```
+
+และเมื่อต้องการเปลี่ยน branch ไปอีกอันให้ใช้ คล้าย `git checkout <branch>`
+```bash
+git switch <branch>
+```
+
+เมื่อต้องการลบ branch ออกให้ใช้
+```python
+git branch -d <branch> # มีการเตือน หากยังไม่ทำการ Merge เข้ากับตัวหลัก
+git branch -D <branch> # ลบทันที
+```
+
+เมื่อต้องการสร้าง branch แล้วเข้าไปยัง branch นั้นทันที
+```bash
+git checkout -b <new_branch>
+```
+
+เมื่อต้องการ merge กับ branch อื่น ๆ ไปยัง branch ของเราให้ใช้
+```python
+git merge <branch> # อยู่ที่ว่าปัจจุบันเราอยู่ branch อะ โดยจะ merge เข้ากับ branch ที่ใส่เข้าไป
+```
