@@ -117,7 +117,7 @@ git pull
 ```
 เมื่อต้องการดู Commit ที่ได้ทำไปให้ใช้คำสั่ง
 ```bash
-git log
+git log <Optional-branch | origin/branch>
 ```
 เมื่อต้องการย้อนกลับไป ให้ข้อมูลเหมือน git repository ที่ remote อยู่ให้ใช้ หรือไปที่ branch นั้น ๆ
 ```bash
