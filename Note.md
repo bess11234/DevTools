@@ -127,6 +127,10 @@ git checkout [COMMIT-HASH]
 ```
 
 # Week 3
+```python
+HEAD # ระบุว่าเราอยู่ Branch ไหน (HEAD -> master)
+```
+ิืbranch master สร้างตอนเริ่ม `git init`
 
 วิธีเช็คว่า Git repository มี branch อะไรบ้าง และดูได้ว่าเราอยู่ branch
 ```bash
@@ -137,15 +141,16 @@ git branch
 git branch <new_branch>
 ```
 
+เมื่อต้องการเปลี่ยนชื่อ branch ให้ใช้ โดยจะเปลี่ยนชื่อ branch ที่ HEAD อยู่
+```bash
+git branch -m <branch> # Rename ที่ branch ปัจจุบัน
+git branch -m <branch> <new_name_branch> # Rename
+git branch -M <branch> # Shortcut for --move --forge ถ้าเราใส่ branch ที่มีอยู่แล้วมันจะเข้าไปแทนที่
+```
+
 และเมื่อต้องการเปลี่ยน branch ไปอีกอันให้ใช้ คล้าย `git checkout <branch>`
 ```bash
 git switch <branch>
-```
-
-เมื่อต้องการลบ branch ออกให้ใช้
-```python
-git branch -d <branch> # มีการเตือน หากยังไม่ทำการ Merge เข้ากับตัวหลัก
-git branch -D <branch> # ลบทันที
 ```
 
 เมื่อต้องการสร้าง branch แล้วเข้าไปยัง branch นั้นทันที
@@ -153,7 +158,31 @@ git branch -D <branch> # ลบทันที
 git checkout -b <new_branch>
 ```
 
+**สามารถใช้ `git log` เมื่อเข้าไปยัง branch ที่ต้องการเพื่อดู COMMIT-HASH เพื่อย้อนเวลาใน branch นั้น ๆ ผ่าน `git checkout <COMMIT-HASH>`**
+
+เมื่อต้องการลบ branch ออกให้ใช้ โดยเราต้องออกจาก branch ที่ต้องการจะลบ
+```python
+git branch -d <branch> # มีการเตือน หากยังไม่ทำการ Merge เข้ากับตัวหลัก
+git branch -D <branch> # ลบทันที
+```
+
 เมื่อต้องการ merge กับ branch อื่น ๆ ไปยัง branch ของเราให้ใช้
 ```python
-git merge <branch> # อยู่ที่ว่าปัจจุบันเราอยู่ branch อะ โดยจะ merge เข้ากับ branch ที่ใส่เข้าไป
+git merge <branch> # อยู่ที่ว่าปัจจุบันเราอยู่ branch อะไร โดยจะ merge เข้ากับ branch ที่ใส่เข้าไป
+```
+
+ถ้าต้องการอัพเข้า git repository แตกต่าง branch กันให้ใช้
+```python
+git push -u origin <branch> # เพื่ออัพ branch ที่มีใน local respository เข้าไปยัง git repository
+```
+
+ถ้าต้องการลบ branch ใน git repository ให้ใช้ **ลบ defalut branch** ไม่ได้
+```python
+git push -u origin --delete <branch_name>
+```
+
+ถ้าต้องการดึงข้อมูลล่าสุด พร้อมกับ branch จาก git repository รวมถึงถ้ามี branch ถูกลบก็จะลบใน `git branch -r`
+```python
+git fetch -p
+git branch -r
 ```
