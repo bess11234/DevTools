@@ -74,8 +74,8 @@ This lab will guide you through using `git checkout` to navigate between commits
 
      ```bash
      git checkout main or git checkout master
-
      ```
+      ![PNG](../images/1.PNG)
 
    - **Checkout to the First Commit:**
      Finally, checkout to the first commit using its commit hash.

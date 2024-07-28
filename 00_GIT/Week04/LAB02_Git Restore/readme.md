@@ -36,38 +36,38 @@ Develop a comprehensive understanding of the `git restore` command in Git throug
      ```
 
    - **Commit :**
-   ```bash
+      ```bash
       echo "Update to file1" >> file1.txt
       git add file1.txt
       git commit -m "Update file1"
-   ```
-   ```bash
+      ```
+      ```bash
       echo "Update to file2" >> file2.txt
       git add file2.txt
       git commit -m "Update file2"
-   ```
+      ```
 
 
 
-- **Commit :**
-   ```bash
+   - **Commit :**
+      ```bash
       echo "Initial content in file3" > file3.txt
       git add file3.txt
       git commit -m "Initial commit of file3"
-   ```
-   ```bash
+      ```
+      ```bash
       echo "Update to file3" >> file3.txt
       git add file3.txt
       git commit -m "Update file3"
-   ```
+      ```
 
 
-- **Commit :**
-    ```bash
-     echo "xxxx More xxxx Update to file3" >> file3.txt
-     git add file3.txt
-     git commit -m "Update xxx More xxx file3"
-    ```
+   - **Commit :**
+      ```bash
+      echo "xxxx More xxxx Update to file3" >> file3.txt
+      git add file3.txt
+      git commit -m "Update xxx More xxx file3"
+      ```
 
    
 
@@ -83,17 +83,17 @@ Develop a comprehensive understanding of the `git restore` command in Git throug
 2. **Practice Using `git restore` with HEAD:**
    Modify a file and revert the changes using `HEAD`:
 
-   ```bash
-   echo "Additional line in file1" >> file1.txt
-   git status  # Check the effect
-   git log --oneline  # Check the effect
-   ```
-  ```bash
-   git restore --source=HEAD file1.txt
-   git status  # Check the effect
-   git log --oneline  # Check the effect
-   ```
-
+      ```bash
+      echo "Additional line in file1" >> file1.txt
+      git status  # Check the effect
+      git log --oneline  # Check the effect
+      ```
+      ```bash
+      git restore --source=HEAD file1.txt
+      git status  # Check the effect
+      git log --oneline  # Check the effect
+      ```
+      ![PNG](./../images/2.PNG)
 
 
 3. **Restore to Specific Commit and HEAD~3:**
@@ -119,10 +119,12 @@ Develop a comprehensive understanding of the `git restore` command in Git throug
    git status  # Verify staged
    ```
 
-  ```bash
+   ```bash
    git restore --staged file3.txt
    git status  # Verify unstage
    ```
+
+   ![PNG](../images/3.PNG)
 
 
 #### Deliverables

@@ -157,3 +157,45 @@ git checkout -b <new_branch>
 ```python
 git merge <branch> # อยู่ที่ว่าปัจจุบันเราอยู่ branch อะ โดยจะ merge เข้ากับ branch ที่ใส่เข้าไป
 ```
+
+# Week 4
+
+เมื่อต้องการ add ไฟล์ทั้งหมด และ commit ให้ใช้ `-am`
+```bash
+git commit -am "<text>"
+```
+> Note: ไม่สามารถใช้กับไฟล์ที่เพิ่งสร้างได้
+
+`git commit -a` เป็นการระบุ File ที่ต้องการ Commit
+
+เมื่อต้องการกู้คืนข้อมูลจากการที่เรา Commit ไปแล้วให้ใช้ tree หรือ HEAD
+```bash
+git restore --source=<HEAD/tree>[~(1,2,3..)] <file, file, ...>
+git restore -s <HEAD/tree>[~(1, 2, 3)] <file, file, ...>
+```
+
+เมื่อเผลอกด commit ไฟล์ หรือไม่ได้ต้องการให้ไฟล์บางไฟล์ commit ให้ใช้ จะเป็นการย้อน staged กลับไปยังก่อน commit
+```bash
+git restore --staged <file, file, ...>
+git restore -S <file, file, ...>
+```
+
+เมื่อต้องการรีเซ็ต `soft` กลับไปยัง commit ที่ต้องการ โดยไม่มีผลกระทบต่อเนื้อหาในไฟล์ เมื่อไปดูที่คำสั่ง `git log --oneline` ก็จะกลับไปยัง commit ที่ใส่ HASH เข้าไป
+```bash
+git reset --soft <COMMIT-HASH>
+```
+> Note: ไฟล์ยังสามารถ commit ได้ต่อ เพราะเมื่อย้อนไปเนื้อหาไม่ถูกกระทบ ทำให้ต่างกับใน git repository ไฟล์นั้น ๆ เลยอยู่ใน Stage ที่รอการ commit
+
+และ เมื่อต้องการรีเซ็ต `hard` กลับไปยัง commit พร้อมกับเนื้อหาไฟล์ของ commit นั้น
+```bash
+git reset --hard <COMMIT-HASH>
+```
+
+เมื่อต้องการ revert กลับไปยัง commit ก่อน และแก้ไขข้อมูลในไฟล์เอง
+```python
+git revert <COMMIT-HASH>
+# กดเสร็จจะมีการ conflict ของไฟล์ให้แก้ไข
+git add .
+git revert --continue # จะมีขึ้น vim แก้ไขชื่อของ Commit :wq | :!q
+git log --oneline # จะมีการเพิ่มขึ้นของ Commit
+```

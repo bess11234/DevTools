@@ -80,7 +80,7 @@ Learn to effectively use the `git revert` command to undo changes in a Git repos
    git revert --continue
    git log --oneline  # Verify the revert
    ```
-
+   ![PNG](../images/5.PNG)
 
 #### Conclusion
 This lab is aimed at providing a hands-on understanding of `git revert` and its impact on a Git repository, emphasizing its role in undoing changes and managing the project's history.

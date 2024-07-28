@@ -71,4 +71,5 @@ To understand and practice the use of `git reset` with `soft` and `hard` options
      ```bash
      git reset --hard <commit-hash-of-first-commit>
      ```
-   
+  
+    ![PNG](../images/4.PNG)
