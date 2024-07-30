@@ -119,7 +119,9 @@ git pull
 ```bash
 git log
 ```
-เมื่อต้องการย้อนกลับไป ให้ข้อมูลเหมือน git repository ที่ remote อยู่ให้ใช้ หรือไปที่ branch นั้น ๆ
+เมื่อต้องการย้อนกลับไป ให้ข้อมูลเหมือน git repository ที่ remote อยู่ให้ใช้ หรือไปที่ branch นั้น ๆ สามารถใช้ได้โดย
+- ย้อนเวลาผ่าน COMMIT-HASH
+- ย้ายไป branch ที่ต้องการ
 ```bash
 git checkout <branch>
 git checkout origin/main
@@ -168,21 +170,25 @@ git commit -am "<text>"
 
 `git commit -a` เป็นการระบุ File ที่ต้องการ Commit
 
-เมื่อต้องการกู้คืนข้อมูลจากการที่เรา Commit ไปแล้วให้ใช้ tree หรือ HEAD
-```bash
+เมื่อต้องการกู้คืนข้อมูลจากการที่เรา Commit ไปแล้วให้ใช้ tree หรือ HEAD คล้ายการทำ Ctrl+Z เลข 0, 1, 2, 3.. คือจำนวนครั้งที่ย้อนไป
+- ใช้งานได้จากการที่ยังไม่ Commit เมื่อต้องการรีไฟล์ที่ต้องการ
+```python
 git restore --source=<HEAD/tree>[~(1,2,3..)] <file, file, ...>
 git restore -s <HEAD/tree>[~(1, 2, 3)] <file, file, ...>
+git restore -s <HEAD/tree>[~(1, 2, 3)] . # ทุกไฟล์
 ```
 
 เมื่อเผลอกด commit ไฟล์ หรือไม่ได้ต้องการให้ไฟล์บางไฟล์ commit ให้ใช้ จะเป็นการย้อน staged กลับไปยังก่อน commit
-```bash
+```python
 git restore --staged <file, file, ...>
 git restore -S <file, file, ...>
+git restore -S . # ทุกไฟล์
 ```
 
 เมื่อต้องการรีเซ็ต `soft` กลับไปยัง commit ที่ต้องการ โดยไม่มีผลกระทบต่อเนื้อหาในไฟล์ เมื่อไปดูที่คำสั่ง `git log --oneline` ก็จะกลับไปยัง commit ที่ใส่ HASH เข้าไป
 ```bash
 git reset --soft <COMMIT-HASH>
+git reset <COMMIT-HASH>
 ```
 > Note: ไฟล์ยังสามารถ commit ได้ต่อ เพราะเมื่อย้อนไปเนื้อหาไม่ถูกกระทบ ทำให้ต่างกับใน git repository ไฟล์นั้น ๆ เลยอยู่ใน Stage ที่รอการ commit
 
@@ -191,7 +197,7 @@ git reset --soft <COMMIT-HASH>
 git reset --hard <COMMIT-HASH>
 ```
 
-เมื่อต้องการ revert กลับไปยัง commit ก่อน และแก้ไขข้อมูลในไฟล์เอง
+เมื่อต้องการ revert กลับไปยัง commit ก่อน และแก้ไขข้อมูลในไฟล์เอง เมื่อมีการ revert แล้วจะให้แก้ conflict กับ commit หลังมัน และจะเกิด commit ใหม่ให้มาด้วย
 ```python
 git revert <COMMIT-HASH>
 # กดเสร็จจะมีการ conflict ของไฟล์ให้แก้ไข
