@@ -179,6 +179,7 @@ git restore -s <HEAD/tree>[~(1, 2, 3)] . # ทุกไฟล์
 ```
 
 เมื่อเผลอกด commit ไฟล์ หรือไม่ได้ต้องการให้ไฟล์บางไฟล์ commit ให้ใช้ จะเป็นการย้อน staged กลับไปยังก่อน commit
+- อาจจะใช้ตอนที่ `git add .` แล้วมีไฟล์ที่ไม่ต้องการ commit เลยใช้คำสั่งนี้
 ```python
 git restore --staged <file, file, ...>
 git restore -S <file, file, ...>
