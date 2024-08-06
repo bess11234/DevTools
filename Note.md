@@ -1,4 +1,4 @@
-# Week 1
+# Week 1 (GITHUB)
 เพื่อให้สามารถดูข้อมูลการตั้งค่า git ของเราต้องใช้คำสั่ง
 ```bash
 git config -l
@@ -198,4 +198,14 @@ git revert <COMMIT-HASH>
 git add .
 git revert --continue # จะมีขึ้น vim แก้ไขชื่อของ Commit :wq | :!q
 git log --oneline # จะมีการเพิ่มขึ้นของ Commit
+```
+
+# Week 5 (GOOGLE CLOUD)
+
+การสร้าง Key ที่ใช้ในการ Authentication เข้าไปใน Instance ที่มี Public key ของเรา
+```bash
+mkdir mykey
+cd mykey
+ssh-keygen -t rsa -b 2048 -C "username" -f  username_gcp_key # Generate RSA KEY
+ssh -i ./username_gcp_key username@[EXTERNAL_IP] # ./username_gcp_key เป็น Private key # username@[EXTERNAL_ID username เป็นของ Instance
 ```
