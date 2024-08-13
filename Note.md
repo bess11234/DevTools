@@ -285,7 +285,7 @@ Run ubuntu
 ```python
 docker run ubuntu
 docker run ubuntu sleep 5 # ให้หลับ 5 วิ
-docker run 
+docker run ubuntu sh -c "echo 'Hello' && echo 'World' && ls && pwd && date"
 ```
 
 ### Port Mapping
