@@ -315,13 +315,3 @@ docker run -d <service> # รัน Service โดยให้เป็น backg
 docker run –v /opt/datadir:/var/lib/mysql mysql # : เอาไว้คั่นระหว่างตัวที่จะ Link กัน
 docker run -d -p 8083:80 -v ${PWD}/web_demo:/usr/share/nginx/html:ro nginx
 ```
-
-# Week 5 (GOOGLE CLOUD)
-
-การสร้าง Key ที่ใช้ในการ Authentication เข้าไปใน Instance ที่มี Public key ของเรา
-```bash
-mkdir mykey
-cd mykey
-ssh-keygen -t rsa -b 2048 -C "username" -f  username_gcp_key # Generate RSA KEY
-ssh -i ./username_gcp_key username@[EXTERNAL_IP] # ./username_gcp_key เป็น Private key # username@[EXTERNAL_ID username เป็นของ Instance
-```
