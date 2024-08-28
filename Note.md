@@ -37,6 +37,7 @@ git init
 โดยให้เราลองสร้าง **Private Repository** ใน Github แล้วนำไป Clone ใส่เครื่อง โดยใช้คำสั่ง
 ```bash
 git clone <URL> <Optional:FolderName>
+git clone -b <branch> <URL> # เมื่อสร้างขึ้นมาแล้วจะยัดใส่ branch ที่เรากำหนด
 ```
 ***Hint:***
 ```bash
@@ -251,13 +252,13 @@ ssh-keygen -t rsa -b 2048 -C "username" -f filename_key
 > **Note:** จะได้ไฟล์ .pub ซึ่งเก็บ Public key ไว้ และไฟล์ที่ไม่มีนามสกุลเก็บ Private key
 
 # Week 7
-### kill signal
+## kill signal
 ```python
 ps -a # ดู Signal
 kill -9 <Signal>
 ```
 
-### Delete all containers
+## Delete all containers
 ```
 docker stop $(docker ps -a -q)  
 docker rm $(docker ps -a -q) 
@@ -266,27 +267,27 @@ docker volume rm $(docker volume ls -q)
 docker network prune -f
 ```
 
-### Nginx
+## Nginx
 ```python
 docker run nginx # ถ้าไม่มี Nginx จะโหลด และจะสร้าง Container Nginx ขึ้นมา ถ้ามีจะสร้าง Container อีกตัวขึ้นมา
 ```
 
-### BusyBox
+## BusyBox
 ```python
 docker run busybox hi there # เหมือน Nginx
 ```
 
-### Ubuntu
+## Ubuntu
 ```python
 docker run ubuntu
 docker run ubuntu sleep 5
 docker run ubuntu sh -c "echo 'Hello' && echo 'World' && echo `pwd`"
 ```
 
-### Docker
+## Docker
 - สามารถกำหนด RAM หรือสเปคที่ให้ Container แต่ละอันใช้ได้
 
-### Docker vs Virtual Machine
+## Docker vs Virtual Machine
 - Virtual Machine
     - หนักกว่า (GB)
     - ใช้งานได้เยอะกว่า
@@ -299,7 +300,7 @@ Docker daemon คือตัวจัดการให้ภายในเค
 
 Dockerfile คือเหมือน Docker Image
 
-### Command
+## Command
 Run container
 ```bash
 docker run nginx
@@ -318,7 +319,7 @@ docker run ubuntu sleep 5 # ให้หลับ 5 วิ
 docker run ubuntu sh -c "echo 'Hello' && echo 'World' && ls && pwd && date"
 ```
 
-### Port Mapping
+## Port Mapping
 คือการทำ Port ออกข้างนอก เข้าข้างในได้
 ```python
 docker run -p 80:5000 myname/simple-app # 80 ข้างนอก 5000 ข้างใน โดยคนข้างนอกเข้ามาต้องใช้ Port 80
@@ -331,8 +332,74 @@ docker run mysql # ไม่ให้ออกข้างนอก
 docker run -d <service> # รัน Service โดยให้เป็น backgroud process
 ```
 
-### Volumn Mapping
+## Volumn Mapping
 ```python
 docker run –v /opt/datadir:/var/lib/mysql mysql # : เอาไว้คั่นระหว่างตัวที่จะ Link กัน
 docker run -d -p 8083:80 -v ${PWD}/web_demo:/usr/share/nginx/html:ro nginx
+```
+
+# Week 8
+## Stop Containers
+```python
+docker ps
+docker stop <Names> # Names ของ Container เปลี่ยน Status เป็น Exited (0)
+docker stop ($docker ps -aq) # หยุด Containers ทั้งหมด
+```
+
+## Remove Containers
+```python
+docker ps
+docker rm <Names> # ลบ Containers
+docker rm ($docker ps -aq) # ลบ Containers ทั้งหมด
+docker container prune -f # ลบ Containers ที่มี Status Exited (0) หรือก็คือหยุด
+```
+
+## Images Container
+```python
+docker images # ดู Images ทั้งหมดใน Docker
+```
+
+## Images Remove
+```python
+docker rmi <image_repository> # ดู repository ได้จาก `docker images`
+docker rmi -f $(docker images -aq) # ลบ Image ทั้งหมด
+docker rmi prune -f # ลบ Image ที่ไม่ได้ใช้
+```
+
+## Docker command
+```python
+docker pull <image> # image อย่าง ubuntu
+docker build -t <image> <pathtoDockerfile> # สร้าง Images ผ่าน Dockerfile
+docker run -it <image> <command_exec[sh, bash, /bin/bash, zsh, ..]>
+docker run <image>
+docker run -d <image>
+docker ps -a # Show containers
+docker exec <container_name> <run_command> # อย่าง Container_name นั้นมี Image เป็น Ubuntu; run_command คือคำสั่งที่จะรันใน container นั้น โดย status ต้องเป็น UP
+docker inspect <cotainer_name> # ส่อง Container นั้น ๆ ว่ามี IP, Name, State, Path
+docker logs <container_name> # ส่อง Container ว่าใช้ Command Line อะไรบ้าง และเกิดผลลัพท์อะไร
+```
+
+## Status codes and HTTP methods
+HTTP Methods
+- GET   : retrive an existing resource (read only)
+- POST  : create a new resource/send information
+- PUT   : update an existing resource
+- PATCH : partically update an existing resoure
+- DELETE: delete a resource
+
+HTTP status code
+- 2xx   : successful
+- 3xx   : redirect
+- 4xx   : client error
+- 5xx   : server error
+
+## Dockerfile
+```
+RUN # ทำคำสั่งหลัง Build
+CMD # ทำคำสั่งหลัง Run Build เสร็จ
+```
+
+## Tips
+```python
+เมื่อมีการรันไฟล์ Container ที่ Image มี Dockerfile ควรดู Port ที่เขียนไว้ด้วย เพราะเมื่อทำการ docker run -p <อะไรก็ได้>:<ตาม Dockerfile>
 ```
