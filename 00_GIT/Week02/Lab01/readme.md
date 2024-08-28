@@ -13,7 +13,7 @@ Creating a lab scenario that involves using `git add`, `git commit`, and `git st
      ```bash
      git init
      ```
-![PNG](../practices/1.png)
+    ![PNG](../practices/1.png)
 
 2. **Create Three Files and Check Status**
    - Create the initial files:
@@ -26,7 +26,7 @@ Creating a lab scenario that involves using `git add`, `git commit`, and `git st
      ```bash
      git status
      ```
-![PNG](../practices/2.png)
+    ![PNG](../practices/2.png)
 
 3. **Add Files to Staging and Commit**
    - Add the files to staging:
@@ -46,11 +46,11 @@ Creating a lab scenario that involves using `git add`, `git commit`, and `git st
 ### Step 2: Modify Files and Second Commit
 
 1. **Modify Files**
-   - Make changes to the files:
-     ```bash
-     echo "Additional content for file 1" >> file1.txt
-     echo "Additional content for file 2" >> file2.txt
-     ```
+    - Make changes to the files:
+      ```bash
+      echo "Additional content for file 1" >> file1.txt
+      echo "Additional content for file 2" >> file2.txt
+      ```
 
 2. **Monitor Changes and Commit**
    - Check the status to see the modified files:
@@ -67,7 +67,7 @@ Creating a lab scenario that involves using `git add`, `git commit`, and `git st
      git status
      git log
      ```
-![PNG](../practices/3.png)
+    ![PNG](../practices/3.png)
 
 ### Step 3: Final Modifications and Commit
 
@@ -92,7 +92,7 @@ Creating a lab scenario that involves using `git add`, `git commit`, and `git st
      git status
      git log
      ```
-![PNG](../practices/4.png)
+    ![PNG](../practices/4.png)
 
 ### Conclusion
 

@@ -38,7 +38,7 @@ To create a lab environment with Git, push three files to a remote repository, a
    ```bash
    git push -u origin master
    ```
-![PNG](../practices/5.png)
+   ![PNG](../practices/5.png)
 
 7. **Make and Commit Changes Three Times**:
    
