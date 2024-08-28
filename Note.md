@@ -7,19 +7,21 @@ git config -l
 ```bash
 git config --global user.name "<name>"
 git config --global user.email "<email>"
+git config --global credential.username "<username>"
 ```
 หรือต้องการ **Unset** name กับ email ต้องใช้คำสั่ง
 ```bash
 git config --global --unset user.name
 git config --global --unset user.email
 ```
-เมื่อใช้มีการเพิ่มไฟล์ (ไม่ใช่อัพเดท) จะทำให้เกิด `Untracked files` หรือแก้ไขไฟล์เข้าไป จะทำให้เกิด `Changes not staged for commit` โดยสามารถใช้คำสั่งต่อไปนี้ เพื่อดูว่ามีไฟล์ใดที่เป็นแบบนั้น
+เมื่อมีการเพิ่มไฟล์ (ไม่ใช่อัพเดท) จะทำให้เกิด `Untracked files` หากแก้ไขข้อมูลไฟล์ จะทำให้เกิด `Changes not staged for commit` แทน โดยสามารถใช้คำสั่งต่อไปนี้ เพื่อดูว่ามีไฟล์ใดที่เป็นแบบนั้น
 ```bash
 git status
 ```
-![PNG](./images/1.png)
 
-![PNG](./images/2.png)
+![CREATE FILE](./images/2.png)
+
+![UPDATE FILE](./images/1.png)
 
 แต่ถ้าขึ้น Error แบบนี้
 
@@ -34,10 +36,10 @@ git init
 [gitignore](https://www.toptal.com/developers/gitignore) เพื่อ Generate `.gitignore` ได้
 
 ## Exercise
-โดยให้เราลองสร้าง **Private repository** ใน Github แล้วนำไป Clone ใส่เครื่อง โดยใช้คำสั่ง
+โดยให้เราลองสร้าง `Private repository` ใน Github แล้วนำไป Clone ใส่เครื่อง โดยใช้คำสั่ง
 ```bash
 git clone <URL> <Optional:FolderName>
-git clone -b <branch> <URL> # เมื่อสร้างขึ้นมาแล้วจะยัดใส่ branch ที่เรากำหนด
+git clone -b <branch> <URL> <Optional:FolderName> # เมื่อสร้างขึ้นมาแล้วจะยัดใส่ branch ที่เรากำหนด
 ```
 ***Hint:***
 ```bash
@@ -53,11 +55,11 @@ Settings -> Developer settings -> Personal access tokens -> Token (classic) -> G
 ```
 
 # Week 2
-ใช้คำสั่ง git add เพื่อเปลี่ยนสถานะจาก `Untracked files` เป็น `Changes to be committed`
+ใช้คำสั่ง `git add` เพื่อเปลี่ยนสถานะจาก `Untracked files && Changes not staged for commit` เป็น `Changes to be committed`
 
 เปลี่ยนจาก state `Working directory` -> `Staging Area`
 ```bash
-git add <all_files>
+git add <file file ...>
 ```
 หรือต้องการ Commit ไฟล์ทุกไฟล์
 ```bash
@@ -73,14 +75,16 @@ git commit -m "Example"
 
 ถ้าต้องการย้าย Branch ไป Branch ที่ต้องการ
 ```bash
-git branch -M <branch>
+git switch <branch>
+git checkout <branch>
 ```
+
 ถ้าต้องการเชื่อม git เข้ากับ git init ต้องใช้คำสั่ง
 ```python
 git remote add origin <REMOTE-URL>
-git remote add <name> <REMOTE-URL> # เปลี่ยน Branch นอกจาก origin ได้
+git remote add <name> <REMOTE-URL> # กำนหดชื่อแทน url นอกจาก origin ได้
 ```
-ุถ้าต้องการเปลี่ยนชื่อ git repository ให้เป็นชื่ออื่นให้ใช้คำสั่ง
+ถ้าต้องการเปลี่ยนชื่อ git repository ให้เป็นชื่ออื่นให้ใช้คำสั่ง
 ```bash
 git remote rename <name-origin> <new-name>
 ```
@@ -94,26 +98,26 @@ git remote remove origin
 ถ้าต้องการอัพขึ้นไปยัง git ต้องใช้คำสั่ง
 ทำให้ข้อมูลใน state `Local repository` -> `Git/Remote repository`
 ```python
-git push -u origin <branch> # -u จะทำให้ track branch ให้สามารถ git pull/git push ได้เลย โดยจะเอาตามที่เคย git push -u ไป
-git push origin <branch> # ทำให้ git pull/git push ต้องเลือก branch
+git push -u <name-origin/..> <branch> # -u จะทำให้ track branch ให้สามารถ git pull/git push ได้เลย โดยจะเอาตามที่เคย git push -u ไป
+git push <name-origin/..> <branch> # ทำให้ git pull/git push ต้องเลือก branch
 ```
 โดยเมื่อต้องการอัพไฟล์เข้าไปยัง git repository ที่ได้สร้างขึ้นใหม่ใน github ให้ใช้คำสั่งดังนี้
-```bash
-git branch -M <branch>
-git remote add origin <Remote-URL>
-git push -u origin <branch>
+```py
+git branch -M <branch> # เปลี่ยนชื่อ branch ปัจจุบัน โดย Default master
+git remote add <name-origin/...> <Remote-URL> # กำหนด Url ว่าจะเชื่อมกับ Remote repository ที่ไหน
+git push -u <name-origin/...> <branch> # เมื่อทำการ add และ commit แล้วใช้คำสั่งนี้จะอัพโหลดขึ้น Remote repository ที่ใช้เข้าไปหากมี -u จะ track ตามด้วย
 ```
-> โดย branch ต้องมีชื่อเดียวกันกับตอน push
-```bash
-git branch -M test
-git push -u origin test
+โดย branch ที่จะ push เข้าไป ต้องมีอยู่ใน local repository
+```py
+git branch # เพื่อดู branch ทั้งหมด
+git push -u <name-origin/...> <branch>
 ```
 
 เมื่อต้องการดึงข้อมูลจากใน `Git/Remote repository` เพื่อทำการอัพเดทข้อมูลภายใน `Local repository` โดยจะยังไม่ได้อัพเดททันทีแต่จะนำ Commit ล่าสุดเข้ามารอที่เครื่อง ใช้คำสั่ง
 
 `Git/Remote repository` -> `Local repository`
 ```bash
-git fetch
+git fetch <name-origin/...> <branch>
 ```
 เมื่อต้องการให้อัพเดทข้อมูลไปยัง `Working directory` จากที่ได้ดึงข้อมูลมาจากการใช้ `git fetch` ให้ใช้คำสั่ง
 
@@ -124,7 +128,7 @@ git merge origin/main
 ```
 หรือ เมื่อดึงเสร็จเราสามารถอัพเดท `Local repository` ให้ตรงกับ Commit ล่าสุดให้ใช้คำสั่งนี้ หรือจริง ๆ สามารถใช้คำสั่งนี้เพื่อดึงข้อมูล Commit ได้เลยไม่ต้อง `git fetch + git merge`
 ```bash
-git pull
+git pull <name-origin/...> <branch>
 ```
 เมื่อต้องการดู Commit ที่ได้ทำไปให้ใช้คำสั่ง
 ```bash
@@ -346,7 +350,7 @@ docker run ubuntu sh -c "echo 'Hello' && echo 'World' && echo `pwd`"
 
 Docker daemon คือตัวจัดการให้ภายในเครื่องเราเมื่อมีการดึงข้อมูลจาก Registry จะดูว่าข้อมูลเราตรงไหม
 
-Dockerfile คือเหมือน Docker Image
+Dockerfile คือ File ที่กำหนดคำสั่ง หรือ Image ในการสร้าง Docker Image ก็คือเอาไว้ Custom image นั้นแหละ
 
 ## Command
 Run container
