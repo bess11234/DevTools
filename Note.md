@@ -25,10 +25,14 @@ git status
 
 `fatal: not a git repository (or any of the parent directories): .git`
 
-แปลว่าเราไม่ได้อยู่ใน git repository และการใช้คำสั่งต่อไปนี้ ก็สามารถทำให้ **repository** -> **git repository**
+แปลว่าเราไม่ได้อยู่ใน git repository และการใช้คำสั่งต่อไปนี้ ก็สามารถทำให้ **repository** -> **git/remote repository**
 ```bash
 git init
 ```
+
+เราสามารถสร้างไฟล์ `.gitignore` เพื่อให้ชื่อไฟล์ที่อยู่ในนี้ ไม่อัพขึ้น git สามารถใช้เว็บ
+[gitignore](https://www.toptal.com/developers/gitignore) เพื่อ Generate `.gitignore` ได้
+
 ## Exercise
 โดยให้เราลองสร้าง **Private Repository** ใน Github แล้วนำไป Clone ใส่เครื่อง โดยใช้คำสั่ง
 ```bash
@@ -58,7 +62,7 @@ git add <all_files>
 git add .
 ```
 เมื่อต้องการ Commit ลง github ให้ใช้คำสั่ง
-เปลี่ยนจาก state **Staging Area** > **Local Repository**
+เปลี่ยนจาก state **Staging Area** -> **Local Repository**
 ```bash
 git commit -m "Example"
 ```
@@ -122,12 +126,28 @@ git log
 เมื่อต้องการย้อนกลับไป ให้ข้อมูลเหมือน git repository ที่ remote อยู่ให้ใช้ หรือไปที่ branch นั้น ๆ สามารถใช้ได้โดย
 - ย้อนเวลาผ่าน COMMIT-HASH
 - ย้ายไป branch ที่ต้องการ
-```bash
+```python
 git checkout <branch>
-git checkout origin/main
+git checkout origin/main # last commit
 git checkout [COMMIT-HASH]
 ```
 
+## Extras
+เมื่อต้องการหาความแตกต่างของไฟล์ว่าเราได้แก้อะไรไปบ้างแล้วสามารถใช้
+```bash
+git diff
+```
+โดยคำสั่งนี้หากไม่มีการใช้ Flaged เพิ่มเติมจะหาความแตกต่างระหว่างไฟล์ใน **Working Directory** <-> **Staging Area**
+
+หากต้องการหาความแตกต่างระหว่าง **Staging Area** <-> **Local Repository** ให้ใช้
+```bash
+git diff --staged | --cached
+```
+
+หากสิ่งที่เราแก้ไปมีการแก้ Format แล้วเกิด Whitespace แล้วเราไม่ต้องการสนใจมันให้ใช้
+```bash
+git diff -w
+```
 # Week 3
 
 วิธีเช็คว่า Git repository มี branch อะไรบ้าง และดูได้ว่าเราอยู่ branch
@@ -138,6 +158,7 @@ git branch
 ```bash
 git branch <new_branch>
 ```
+> **Note:** หากต้องการเปลี่ยนชื่อ branch ให้ใช้ `git branch -M/-m <old_b> <new_b>` -m คือไม่ --force
 
 และเมื่อต้องการเปลี่ยน branch ไปอีกอันให้ใช้ คล้าย `git checkout <branch>`
 ```bash
@@ -157,7 +178,7 @@ git checkout -b <new_branch>
 
 เมื่อต้องการ merge กับ branch อื่น ๆ ไปยัง branch ของเราให้ใช้
 ```python
-git merge <branch> # อยู่ที่ว่าปัจจุบันเราอยู่ branch อะ โดยจะ merge เข้ากับ branch ที่ใส่เข้าไป
+git merge <branch> # อยู่ที่ว่าปัจจุบันเราอยู่ branch อะไร โดยจะ merge เข้ากับ branch ที่ใส่เข้าไป
 ```
 
 # Week 4
