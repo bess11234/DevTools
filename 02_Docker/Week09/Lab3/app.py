@@ -9,7 +9,7 @@ def home():
    
    env_var_colour = os.environ['APP_COLOR']
    
-   return render_template("index.html", color= env_var_colour)
+   return render_template("index.html", color=env_var_colour)
     
 
 @app.route('/<string:name>')
