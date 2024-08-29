@@ -82,7 +82,7 @@ git checkout <branch>
 ถ้าต้องการเชื่อม git เข้ากับ git init ต้องใช้คำสั่ง
 ```python
 git remote add origin <REMOTE-URL>
-git remote add <name> <REMOTE-URL> # กำนหดชื่อแทน url นอกจาก origin ได้
+git remote add <name> <REMOTE-URL> # กำหนดชื่อแทน url นอกจาก origin ได้
 ```
 ถ้าต้องการเปลี่ยนชื่อ git repository ให้เป็นชื่ออื่นให้ใช้คำสั่ง
 ```bash
@@ -107,7 +107,7 @@ git branch -M <branch> # เปลี่ยนชื่อ branch ปัจจ�
 git remote add <name-origin/...> <Remote-URL> # กำหนด Url ว่าจะเชื่อมกับ Remote repository ที่ไหน
 git push -u <name-origin/...> <branch> # เมื่อทำการ add และ commit แล้วใช้คำสั่งนี้จะอัพโหลดขึ้น Remote repository ที่ใช้เข้าไปหากมี -u จะ track ตามด้วย
 ```
-โดย branch ที่จะ push เข้าไป ต้องมีอยู่ใน local repository
+โดย branch ที่จะ push เข้าไป ต้องมีอยู่ใน `Local repository`
 ```py
 git branch # เพื่อดู branch ทั้งหมด
 git push -u <name-origin/...> <branch>
@@ -172,7 +172,7 @@ git branch
 git branch <new_branch>
 ```
 วิธีการเปลี่ยนชื่อ
-1. `git branch -m/-M <rename_branch>` จะเปลี่ยนชื่อ branch ที่ HEAD ชี้อยู่
+1. `git branch -m/-M <rename_branch>` จะเปลี่ยนชื่อ branch ที่ HEAD ชี้อยู่ (ที่เราอยู่ปัจจุบัน)
 2. `git branch -m/-M <branch> <rename_branch>` จะเปลี่ยนชื่อ branch ที่เรากำหนด
 
 เมื่อต้องการดูว่า `Local repository` เราได้อัพขึ้น branch ไหนใน `Git/Remote repository` ให้ใช้
@@ -217,8 +217,8 @@ git commit -m "Merge"
 git branch -d/-D <branch>
 ```
 แต่ใน `Git/Remote repository` ยังไม่ได้ลบให้ใช้คำสั่ง
-```bash
-git push -d/-D <origin> <branch>
+```py
+git push -d <name-origin> <branch> # ต้องระบุ <name> <branch> เสมอ ใช้ tracked ไม่ได้
 ```
 
 # Week 4
@@ -251,6 +251,7 @@ git restore -S . # ทุกไฟล์
 
 เมื่อต้องการรีเซ็ต `soft` กลับไปยัง commit ที่ต้องการ โดยไม่มีผลกระทบต่อเนื้อหาในไฟล์ 
 - เมื่อไปดูที่คำสั่ง `git log --oneline` ก็จะกลับไปยัง commit ที่ใส่ HASH เข้าไป
+- จะเห็นว่า `git log --oneline` จะมี commit ที่เราเลือกเป็น commit ล่าสุด
 ```bash
 git reset --soft <COMMIT-HASH>
 git reset <COMMIT-HASH>
@@ -258,6 +259,7 @@ git reset <COMMIT-HASH>
 > ``🔥`` ไฟล์ยังสามารถ commit ได้ต่อ เพราะเมื่อย้อนไปเนื้อหาไม่ถูกกระทบ ทำให้ต่างกับใน git repository ไฟล์นั้น ๆ เลยอยู่ใน Stage ที่รอการ commit
 
 เมื่อต้องการรีเซ็ต `hard` กลับไปยัง commit พร้อมกับเนื้อหาไฟล์ของ commit นั้น
+- จะเห็นว่า `git log --oneline` จะมี commit ที่เราเลือกเป็น commit ล่าสุด
 ```bash
 git reset --hard <COMMIT-HASH>
 ```
@@ -356,7 +358,7 @@ Dockerfile คือ File ที่กำหนดคำสั่ง หรื�
 Run container
 ```bash
 docker run nginx
-docker run --cidfile <id> <image>
+docker run --cidfile <id-cotainer> <image>
 ```
 Run test
 ```bash
@@ -421,7 +423,7 @@ docker rmi prune -f # ลบ Image ที่ไม่ได้ใช้
 ## Docker command
 ```python
 docker pull <image> # image อย่าง ubuntu
-docker build -t <image> <pathtoDockerfile> # สร้าง Images ผ่าน Dockerfile
+docker build -t <nameOFimage> <pathtoDockerfile> # สร้าง Images ผ่าน Dockerfile
 docker run -it <image> [<command_exec[sh, bash, /bin/bash, zsh, ..]>]
 docker run <image> # Create container from images and run on current process
 docker run -d <image> # Create container from images and run on backgroud process
