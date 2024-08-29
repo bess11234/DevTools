@@ -95,6 +95,11 @@ git remote remove <name>
 git remote remove origin
 ```
 
+ถ้าต้องการดูว่าแต่ละ `remote <name>` ชื่ออะไรให้ใช้
+```bash
+git remote -v
+```
+
 ถ้าต้องการอัพขึ้นไปยัง git ต้องใช้คำสั่ง
 ทำให้ข้อมูลใน state `Local repository` -> `Git/Remote repository`
 ```python
@@ -199,6 +204,7 @@ git branch -D <branch> # ลบทันที
 เมื่อต้องการสร้าง branch แล้วเข้าไปยัง branch นั้นทันที
 ```bash
 git checkout -b <new_branch>
+git switch -c/-C <new_branch>
 ```
 
 เมื่อต้องการ merge กับ branch อื่น ๆ ไปยัง branch ของเราให้ใช้
