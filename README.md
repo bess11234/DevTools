@@ -474,3 +474,11 @@ CMD # ทำคำสั่งหลัง Run Build เสร็จ
 ```python
 เมื่อมีการรันไฟล์ Container ที่ Image มี Dockerfile ควรดู Port ที่เขียนไว้ด้วย เพราะเมื่อทำการ docker run -p <อะไรก็ได้>:<ตาม Dockerfile>
 ```
+
+# Week 10
+เราสามารถใช้คำสั่ง
+```py
+docker restart <container> # ใช้เพื่อทำการรี Container
+docker network # Bride (Default), None สร้าง Network เพื่อสร้าง Connection กับ Container
+docker run --network <network> #
+```
