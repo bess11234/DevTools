@@ -482,3 +482,6 @@ docker restart <container> # ใช้เพื่อทำการรี Conta
 docker network # Bride (Default), None สร้าง Network เพื่อสร้าง Connection กับ Container
 docker run --network <network> #
 ```
+
+## Tips
+- หากมี Port ที่ใช้ไม่ได้ให้ลองไปดูที่ Firewall ว่ามีการอนุมัติ Port หรือยัง
