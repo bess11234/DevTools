@@ -700,7 +700,7 @@ docker compose down
 ```
 หากต้องการลบ Container, Network, Image ให้ใช้
 ```
-docker compose down
+docker compose down --rmi all --volumes --remove-orphans
 ```
 และหากต้องการลบ Network/Volume ที่ไม่ได้ใช้ให้ใช้คำสั่ง
 ```py
