@@ -485,3 +485,228 @@ docker run --network <network> #
 
 ## Tips
 - หากมี Port ที่ใช้ไม่ได้ให้ลองไปดูที่ Firewall ว่ามีการอนุมัติ Port หรือยัง
+
+# Week 11
+## Dockerfile
+```py
+FROM <image:tag> # เซ็ต Base Image สำหรับ Container
+COPY . /test/  # จะ Copy Folder ทั้งหมดใส่ไปยัง Container
+LABEL <key>=<value> # เพิ่ม Metadata ไปยัง Image
+WORKDIR /test # จะเข้าไปยัง Folder ที่เราระบุ
+RUN npm install # เป็น Command สั่งรันโปรแกรม
+ENV VERSION 1.0 # เซ็ต Environment variable
+VOLUME ['/data'] # Map volume
+ENTRYPOINT <command> <param1> <param2> # กำหนดคำสั่งเริ่มต้น RUN Command ที่ตั้งไว้ โดยต้องเป็นคำสั่งที่ Executable
+EXPOSE 8081 # เปิด PORT
+CMD ['node', '/nodejs/main.js'] # รัน Command หลังสร้าง Container เสร็จ ครั้งเดียว
+```
+
+## Login Dockerhub
+```
+docker login -u <username>
+<password/access token>
+```
+
+### Deploy Private Registry
+ใช้หลัง Login แล้ว
+```
+docker build -t <your_username>/<image_repository_name>:tag .
+docker push <your_username>/<image_repository_name>:tag
+docker pull <your_username>/<image_repository_name>:tag
+```
+
+## Docker networks
+ประเภทของ Networks มี 3 ประเภท
+1. Bridge - `docker run ubuntu`
+2. None - `docker run ubuntu --network=none`
+3. Host - `docker run ubuntu --network=host`
+
+### List network
+```
+docker network ls
+```
+
+เมื่อทำการ Inspect จะได้ข้อมูล network ด้วย
+```py
+docker inspect <container
+....
+"Networks": {
+    "bridge": {
+        "Gateway": "127.2.2.2" # มั่ว
+        "IPaddress": "127.2.2.2" # มั่ว
+        "MacAddress": "127.2.2.2" # มั่ว
+    }
+}
+```
+หากไม่ได้อยู่ Network เดียวกัน Container จะสื่อสารกันไม่ได้ โดย Docker จะมี Embedded DNS ให้ทำให้คุยกันได้
+![alt text](./images/3.png)
+
+## Docker compose
+แทนที่จะรัน Docker container ทีละอันเราสามารถเขียนไฟล์ชื่อ `docker-compose.yml`
+```yml
+version: '3'
+service:
+    web:
+        image: "yourname/simple-webapp"
+    database:
+        image: "mongodb"
+    messaging:
+        image: "redis:alpine"
+    orchestration:
+        image: "ansible"
+```
+โดยใช้คำสั่ง
+```py
+docker compose up
+```
+ทำงานเดียวกันกับคำสั่งดังต่อไปนี้
+```
+docker run yourname/simple-webapp
+docker run mongodb
+docker run redis:alpine
+docker run ansible
+```
+### docker compose link
+เป็นการ Map เชื่อม Container กับ Container
+```yaml
+version: '3'
+redis:
+    image: redis
+db:
+    image: postgres:9.4
+vote:
+    image: voting-app
+    ports:
+        - 5000:80
+    links:
+        - redis
+result:
+    image: result-app
+    ports:
+        - 5001:80
+    links:
+        - db
+worker:
+    image: worker
+    links:
+        - redis
+        - db
+```
+
+### docker compose build
+หากต้องการให้เกิดการ Build image เรื่อย ๆ
+```yaml
+version: '3'
+redis:
+    image: redis
+db:
+    image: postgres:9.4
+vote:
+    build: ./vote
+    ports:
+        - 5000:80
+    links:
+        - redis
+result:
+    build: ./result
+    ports:
+        - 5001:80
+    links:
+        - db
+worker:
+    build: ./worker
+    links:
+        - redis
+        - db
+```
+
+### docker compose networks
+```yaml
+version: '3'
+services:
+    redis:
+        image: redis
+        networks:
+            - back-end
+    db:
+        image: postgres:9.4
+        networks:
+            - back-end
+    vote:
+        image: voting-app
+        networks:
+            - front-end
+            - back-end
+    result:
+        image: result
+        networks:
+            - front-end
+            - back-end
+networks:
+    front-end:
+    back-end:
+```
+
+## Lab
+เมื่อต้องการสร้าง Image จาก Dockerfile ที่ไม่ได้ชื่อ Dockerfile ให้ใช้คำสั่ง
+```py
+docker build -t <image_name> -f <name_Dockerfile> <pathToDockerfile>
+```
+### Lab 0
+```Docker
+FROM ubuntu
+ENTRYPOINT ["echo"]
+CMD ["Hello from both CMD and ENTRYPOINT!"]
+```
+```py
+docker build -t cmd-entrypoint-example -f Dockerfile-CMD-ENTRYPOINT .
+docker run cmd-entrypoint-example "Custom message with both CMD and ENTRYPOINT"
+```
+### Lab 2
+เมื่อต้องการ Copy image และแก้ชื่อกับ Tag ทำเพื่อให้สร้าง Push เข้า Registry ได้ (Dockerhub) โดยต้องมีรูปแบบ `<username>/<image:tag>`
+```
+docker tag <image:tag> <new:tag>
+docker tag <image:tag> <username>/<image:tag>
+```
+
+### Lab 3
+เมื่อต้องการดู Network
+```
+docker network ls
+```
+เมื่อต้องการดูข้อมูลภายใน Network
+```
+docker network create --subnet <IPADDRESS/16> <name>
+docker network inspect <name>
+```
+หากต้องการให้ Connect/Disconnect container เข้ากับ network ใช้
+```
+docker network connect <network_name> <container_name>
+docker network disconnect <network_name> <container_name>
+```
+หากต้องการลบ Network ให้ทำโดย
+```py
+docker network rm <name> # หากไม่ได้ หมายความว่าต้องทำการ disconnect ทุก Container ที่เชื่อมอยู่ออกก่อน
+```
+
+### Lab 4
+โดยจะมีการให้ทำ Compose up หากทำแล้วจะเกิดการสร้าง Image และ Container
+```
+docker compose up
+```
+และเมื่อใช้คำสั่ง Compose down จะทำการลบ Container ให้อัตโนมัติ แต่ Network, Image ยังอยู่เพื่อให้รันได้เร็วขึ้นในการทำ Compose up อีก
+```
+docker compose down 
+```
+หากต้องการลบ Container, Network, Image ให้ใช้
+```
+docker compose down
+```
+และหากต้องการลบ Network/Volume ที่ไม่ได้ใช้ให้ใช้คำสั่ง
+```py
+docker network prune
+docker volume prune
+```
+
+### Lab 5
+เมื่อทำเสร็จ Compose เสร็จแล้วจะทำให้เราสามารถ Deploy เข้า Kubernetes ได้

@@ -55,6 +55,7 @@ docker network disconnect lab_network busybox_container
 ```
 
 ** inspect the network again
+![alt text](image-1.png)
 
 ```
 docker network inspect lab_network
@@ -67,6 +68,7 @@ docker network connect lab_network busybox_container
 ```
 
 ** inspect the network again
+![alt text](image.png)
 
 ```
 docker network inspect lab_network
@@ -82,7 +84,6 @@ docker network disconnect lab_network busybox_container
 
 ```
 docker network rm lab_network
-
 ```
 
 
