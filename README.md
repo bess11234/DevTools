@@ -715,3 +715,7 @@ docker volume prune
 
 ### Lab 5
 เมื่อทำเสร็จ Compose เสร็จแล้วจะทำให้เราสามารถ Deploy เข้า Kubernetes ได้
+
+# Week 12
+- เมื่อทำ `docker compose up` จะมีการเช็คไฟล์ .env ให้อยู่แล้ว
+- เมื่อเราต้องการให้เป็น Backgroud process ต้องใช้คำสั่ง `docker compose up -d`

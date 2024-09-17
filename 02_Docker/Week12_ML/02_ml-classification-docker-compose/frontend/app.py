@@ -92,6 +92,6 @@ with gr.Blocks() as interface:
 
     # Display the training output message
     train_button.click(train_model, inputs=[dataset_name, model_name], outputs=training_output)
-    predict_button.click(predict_model, inputs=[model_name, test_data], outputs=output)
+    predict_button.click(predict_model, inputs=[dataset_name, model_name, test_data], outputs=output)
 
 interface.launch(server_name="0.0.0.0", server_port=7860)

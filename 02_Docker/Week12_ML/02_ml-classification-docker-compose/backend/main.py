@@ -26,6 +26,7 @@ class TrainRequest(BaseModel):
     model_name: str
 
 class PredictRequest(BaseModel):
+    dataset_name: str
     model_name: str
     test_data: List[List[float]]
 
