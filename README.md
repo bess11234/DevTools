@@ -480,7 +480,7 @@ CMD # ทำคำสั่งหลัง Run Build เสร็จ
 ```py
 docker restart <container> # ใช้เพื่อทำการรี Container
 docker network # Bride (Default), None สร้าง Network เพื่อสร้าง Connection กับ Container
-docker run --network <network> #
+docker run --network <network> # ใช้เพื่อสร้าง Container และ Assign network
 ```
 
 ## Tips
@@ -662,6 +662,10 @@ CMD ["Hello from both CMD and ENTRYPOINT!"]
 docker build -t cmd-entrypoint-example -f Dockerfile-CMD-ENTRYPOINT .
 docker run cmd-entrypoint-example "Custom message with both CMD and ENTRYPOINT"
 ```
+จะเห็นว่า
+- CMD สามารถโดนใส่ทับได้หากเราใส่ Argument
+- Entrypoint จะไม่โดนทับหากมี Argument
+- Entrypoint คำสั่งจะอยู่เสมอหากใส่ Argument อะไรไปจะเข้าไปคำสั่งนั้น ต.ย echo
 ### Lab 2
 เมื่อต้องการ Copy image และแก้ชื่อกับ Tag ทำเพื่อให้สร้าง Push เข้า Registry ได้ (Dockerhub) โดยต้องมีรูปแบบ `<username>/<image:tag>`
 ```
@@ -688,6 +692,7 @@ docker network disconnect <network_name> <container_name>
 ```py
 docker network rm <name> # หากไม่ได้ หมายความว่าต้องทำการ disconnect ทุก Container ที่เชื่อมอยู่ออกก่อน
 ```
+- หากต้องการให้ Container สื่อสารกันได้ต้อง Connect ที่ Network เดียวกัน
 
 ### Lab 4
 โดยจะมีการให้ทำ Compose up หากทำแล้วจะเกิดการสร้าง Image และ Container

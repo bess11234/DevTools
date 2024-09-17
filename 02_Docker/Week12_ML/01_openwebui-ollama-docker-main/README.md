@@ -126,7 +126,7 @@ volumes:
    ```
 3. Start the services using Docker Compose:
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
   
    check docker 
