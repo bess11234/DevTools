@@ -719,3 +719,76 @@ docker volume prune
 # Week 12
 - เมื่อทำ `docker compose up` จะมีการเช็คไฟล์ .env ให้อยู่แล้ว
 - เมื่อเราต้องการให้เป็น Backgroud process ต้องใช้คำสั่ง `docker compose up -d`
+
+# Week 13
+DevOpv เป็นอาชีพที่ทำทั้ง Deveplop และ Operation โดยจะทำทั้ง Development และ Deployment
+- ทุกอย่างเป็นแบบ Automate project
+- Deploy เรื่อย ๆ แทนการ Deploy ทีเดียวใหญ่ ๆ
+- Rome ค่อย ๆ สร้าง
+
+## DevOps Phase
+![alt text](./images/week12_1.png)
+
+CI (Continuous Intregration)
+CD มีสองความหมาย (ออกสอบ)
+- Continuous Delivery -- Maunal Approval
+- COntinuous Deployment
+
+## DevOps Tools
+![alt text](./images/week12_2.png)
+
+## CI/CD
+![alt text](./images/week12_3.png)
+- CI เป็นการรวมโค้ด
+- CD เป็นการส่งทำ Test และ Deploy (ส่วนใหญ่เริ่มใช้โปรแกรม Tools ไม่ค่อยใช้คนแล้ว)
+
+## INSTALL Jenkins
+```py
+sudo apt-get update # อัพเดท System
+# Jenkins ใช้ JAVA เลยต้องลง
+sudo apt update
+sudo apt install -y fontconfig openjdk-17-jre
+java -version
+# Install Jenkins (Long-term support release)
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+```
+
+## START Jenkins
+```py
+# เปิด Service Jenkins เมื่อเปิดแล้วมันจะอยู่ที่ Port 8080
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+# (ต้องทำ)
+sudo usermod -a -G docker jenkins # ใส่กลุ่ม docker ให้ jenkins
+sudo usermod -a -G docker $USER # ใส่กลุ่ม docker ให้ user
+```
+### GET ADMIN PASSWORD
+```
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+### Localhost
+สามารถเข้า Service ได้ที่ Port 8080
+
+### First Jenkins Pipeline
+```py
+pipeline {
+    agent any  // Execute on any available Jenkins agent # ใครจะรันก็ได้
+
+    stages {
+        stage('Hello World') {
+            steps {
+                sh  'echo Hello World!'
+            }
+        }
+    }
+}
+```
+### PERMISSION DENIED
+หากเกิดขึ้นต้องลอง `sudo reboot` แล้วรอเวลาให้ Instance reboot
+![alt text](./images/week12_4.png)
