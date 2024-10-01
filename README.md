@@ -808,4 +808,16 @@ JUNKINS_FILE อยู่ใน JENKINS เอง
 ![alt text](./images/13.png)
 
 ## NEED github COMMUNICATE TO dockerhub
-ต้องตั้งค่า Webhook โดย Jenkins จะมีการตรวจว่า github มีการ push หรือป่าว หากมีจะทำการ build ให้เอง ไม่ต้องกด build now
+- ต้องตั้งค่า Webhook โดย Jenkins จะมีการตรวจว่า github มีการ push หรือป่าว หากมีจะทำการ build ให้เอง ไม่ต้องกด build now
+- โดยต้องตั้งค่า IP ที่มี Port ของ Junkins อยู่ (....:8080)
+- ต้องรอ Github บอกว่า Delivery ผ่านด้วย
+- ดู pdf
+
+ตั้งค่า Webhooks
+![alt text](./images/week13_2.png)
+
+ดู Status
+![alt text](./images/week13_3.png)
+
+## TIPS
+- หาก Build Docker ไม่ได้ต้องไปลบ docker container, images, system ให้หมดก่อน
