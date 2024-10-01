@@ -792,3 +792,20 @@ pipeline {
 ### PERMISSION DENIED
 หากเกิดขึ้นต้องลอง `sudo reboot` แล้วรอเวลาให้ Instance reboot
 ![alt text](./images/week12_4.png)
+
+### Authenticate Jenkins
+```py
+Username: bess11234
+Password: Ab123456*
+```
+
+# Week 14
+## WITH SCM
+๋JUNKINS_FILE อยู่ใน github โดยจะง่ายกว่าหาก Project ที่ต้องทำนั้นใหญ่
+
+## WITHOUT SCM
+JUNKINS_FILE อยู่ใน JENKINS เอง
+![alt text](./images/13.png)
+
+## NEED github COMMUNICATE TO dockerhub
+ต้องตั้งค่า Webhook โดย Jenkins จะมีการตรวจว่า github มีการ push หรือป่าว หากมีจะทำการ build ให้เอง ไม่ต้องกด build now
