@@ -70,9 +70,9 @@ pipeline {
     post {
         always {
             // Logout from Docker Hub
-            sh 'docker rm $(docker ps -a -q)'
-            sh 'docker rmi $(docker images -q)'
-            sh 'docker system prune -af'
+            // sh 'docker rm $(docker ps -a -q)'
+            // sh 'docker rmi $(docker images -q)'
+            // sh 'docker system prune -af'
             sh 'docker logout'
         }
     }
