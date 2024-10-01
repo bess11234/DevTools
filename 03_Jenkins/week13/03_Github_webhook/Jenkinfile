@@ -55,27 +55,24 @@ pipeline {
         // }
 
 
-        // stage('Deploy') {
-        //     steps {
-        //         script {
-        //             // Pull the Docker image from Docker Hub
-        //             sh 'docker pull $DOCKER_IMAGE'
-        //             // Run the Docker container
-        //             sh 'docker run -d --name fastapi-webhook -p 8085:80 $DOCKER_IMAGE'
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                script {
+                    // Pull the Docker image from Docker Hub
+                    sh 'docker pull $DOCKER_IMAGE'
+                    // Run the Docker container
+                    sh 'docker run -d --name fastapi-webhook -p 8085:80 $DOCKER_IMAGE'
+                }
+            }
+        }
     }
 
     post {
         always {
             // Logout from Docker Hub
-            sh 'docker stop $(docker ps -a -q)'
             sh 'docker rm $(docker ps -a -q)'
             sh 'docker rmi $(docker images -q)'
             sh 'docker system prune -af'
-            sh 'docker pull $DOCKER_IMAGE'
-            sh 'docker run -d --name fastapi-webhook -p 8085:80 $DOCKER_IMAGE'
             sh 'docker logout'
         }
     }
