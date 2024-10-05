@@ -837,3 +837,46 @@ JUNKINS_FILE อยู่ใน JENKINS เอง
 - Port ต้องเป็นตัวเดียวกันกับที่รันใน Docker Container (ภาย Container)
 - Expose ต้องเป็น Port ที่ Docker Container รัน (Dockerfile)
 - Map XXXX:PORT มาจาก Docker-compose ว่าจะเชื่อมกับภายนอกด้วย Port อะไร
+
+### .env
+หากต้องการกำหนดตัวแปรที่จะใช้ภายใน Docker compose หรือใส่ environment variable เข้าไปใน Docker compose ต้องใส่ที่ไฟล์ `docker-compose.yaml`
+- สามารถกำหนด `.env` ไว้ที่ Root folder ได้เลย
+- เพื่อให้ ไฟล์แต่ละอัน เข้าถึงได้
+```.env
+DB_NAME=app_db
+DB_USER=postgres
+DB_PASSWORD=password
+```
+```yaml
+services:
+    postgres_db:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistent data storage
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Mount your SQL dump
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+volumes:
+    postgres_data # หากมีจะทำการสร้าง Persistent data storage ไว้ที่ docker volumes เมื่อทำ docker compose down จะไม่ลบ volume นี้ และ up ขึ้นมาข้อมุูลจะยังอยู่
+```
+หากจะเข้าถึง Environment variaable โดย Python
+```python
+import os
+os.environ["DB_NAME"]
+os.environ["DB_USER"]
+os.environ["DB_PASSWORD"]
+```
+
+### Dockerfile
+โดยแต่ละ Command จะมีดังนี้
+```Dockerfile
+FROM <images>
+ENV <variable> <value>
+WORKDIR <directory>
+COPY . . // Copy: file or directories จากจุดที่ Dockerfile อยู่
+RUN <command> [<argument>, .., ..] // Run command to setup
+CMD ["<command>", "<argument>", "<argument>..", "<argument>.."]
+EXPOSE <port> // Port ที่รันภายใน Container
+```
