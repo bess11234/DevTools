@@ -792,3 +792,19 @@ pipeline {
 ### PERMISSION DENIED
 หากเกิดขึ้นต้องลอง `sudo reboot` แล้วรอเวลาให้ Instance reboot
 ![alt text](./images/week12_4.png)
+
+## START PROJECT
+ใช้ Docker compose ในการทำงานสร้าง Environment ต่าง ๆ โดยจะกำหนด Frontend ก่อน
+```py
+- project_folder
+    - frontend
+        - Dockerfile
+    - backend
+        - Dockerfile
+    - db
+        - dump.file # หากมีการเชื่อม volume ไปยัง docker-entrypoint-initdb.d ตัว postgres จะ Mount ให้ ./db:/docker-entrypoint-initdb.d/
+```
+โดยหากจะกำหนด Port และทำ Expose ใน Dockerfile
+- Port ต้องเป็นตัวเดียวกันกับที่รันใน Docker Container (ภาย Container)
+- Expose ต้องเป็น Port ที่ Docker Container รัน (Dockerfile)
+- Map XXXX:PORT มาจาก Docker-compose ว่าจะเชื่อมกับภายนอกด้วย Port อะไร
