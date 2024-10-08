@@ -880,3 +880,82 @@ RUN <command> [<argument>, .., ..] // Run command to setup
 CMD ["<command>", "<argument>", "<argument>..", "<argument>.."]
 EXPOSE <port> // Port ที่รันภายใน Container
 ```
+
+# Week 15
+## Kubernetes
+ใช้เพื่อ Automating deployment, scaling, และ management คอนเทนเนอร์
+- Cost ค่อนข้างสูง แต่ดี
+- Kubernetes Master เป็นเหมือนตัวประมวลผล ใช้สร้าง Node แต่ละ Node อีกที ประกอบด้วย
+    - API Server ทำหน้าที่รับคำสั่งจากผู้ใช้ กระบวนการในการสร้าง Container จะอยู่ในแต่ละ Node
+    - Schedule Manager ค่อยจัดคิวว่าควรใส่อะไรก่อนหลัง หรือลบอะไรก่อนหลัง เอาไว้สร้าง/ลบ Node
+    - Controller Manager
+    - Database
+- ปกติจะ Command ผ่าน CLI/UI
+- ควบคุมด้วยนาสกุลไฟล์ `.yml`
+### Orchestration
+ช่วยจัดการ Container อาจเพื่อลดภาระที่ Container เดียวกระจาย Load ไปยังหลาย ๆ Container ทำ Load Balancer คิดว่า Docker compose ก็เหมือน Orchestration ตัวนึง
+
+### Pods
+สิ่งที่รันในแต่ละ Node เป็นหน่วยที่เล็กที่สุด ข้างในจะประกอบด้วย Container (มีหลายอันได้)
+- แต่ละ Pod มี IP เป็นของตัวเอง
+
+#### YAML
+เราสามารถใช้ Yaml ในการสร้าง Pods ได้ โดยมี 4 โครงสร้างใหญ่ ๆ
+1. apiVersion
+2. kind
+3. metadata
+    - Name: กำหนดชื่อ Pod
+4. spec
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: grade-submission-portal
+  labels:
+    app.kubernetes.io/name: grade-submission
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/instance: grade-submission-portal
+spec:
+  containers:
+  - name: grade-submission-portal
+    image: rslim087/kubernetes-course-grade-submission-portal
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "200m"
+      limits:
+        memory: "128Mi"
+    ports:
+      - containerPort: 5001  
+  - name: grade-submission-portal-health-checker
+    image: rslim087/kubernetes-course-grade-submission-portal-health-checker
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "200m"
+      limits:
+        memory: "128Mi"
+```
+
+### Deployment and replica
+- เขาออกแบบมาเพื่อความทนทาน และทำ Load Balancer (Kebernetes)
+- ตรวจสอบ Traffic เพื่อแจก Load
+- โดยจะ Copy ตามจำนวน Node ที่กำหนด หากมี Node ที่พัง มันก็จะไปสร้างอีก Node ขึ้นมา
+- และหากมี Node พังเกินจำนวน Replica ที่ต้องการ จะเอา Pods เข้าไปในอีก Node หนึ่งแทน (Node นั้นก็จะมี 2 Pods)
+- **Rolling Update**: หากมีการอัพเดท App ตัว Kubernetes จะแจก Update เข้าไปแต่ละ Node แล้ว App เก่าที่มีอยู่เดิมใน Node จะถูกลบ และก็ค่อยไป Update อีก Node เรื่อย ๆ
+- เพราะฉะนั้น Kubernete แทบจะเป็น **Zero downtime**
+
+### Services (สอบแค่ 1-2)
+1. NodePort
+    - เอาไว้ออก Internet
+2. CluterIP
+    - เอาไว้ให้ข้างในคุยกัน
+3. LoadBalancer
+
+ใน `.yaml` จะมีการกำหนด port, targetPort, nodePort
+- port: Port ที่จะเชื่อมเข้ามายัง Service
+- targetPort: Port ของ Container ข้างใน
+- nodePort: Port ที่ข้างนอกเชื่อมมายัง Service
+> **Note**: ถ้าไม่อยากให้งงก็ตั้งให้ port กั targetPort เป็นอันเดียวกัน
+- selector เอา app, label มาใส่ได้เลย
