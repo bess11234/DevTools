@@ -958,4 +958,103 @@ spec:
 - targetPort: Port ของ Container ข้างใน
 - nodePort: Port ที่ข้างนอกเชื่อมมายัง Service
 > **Note**: ถ้าไม่อยากให้งงก็ตั้งให้ port กั targetPort เป็นอันเดียวกัน
-- selector เอา app, label มาใส่ได้เลย
+- selector เอา app, label มาใส่ได้เลย (สำหรับ service)
+
+## Command
+ตรวจสอบ namespace ที่รันอยู่ทั้งหมด
+```bash
+kubectl get namespace
+```
+ตรวจสอบ pods ทั้งหมดทุก ๆ namespace
+```bash
+kubectl get pods --all-namespaces
+```
+ตรวจสอบ pods ทั้งหมดของ namespace
+```bash
+kubectl get pods -n <namespace>
+```
+ตรวจสอบ services ทั้งหมดของ namespace
+```bash 
+kubectl get services -n kube-system
+```
+ตรวจสอบ deployments ทั้งหมดของ namespace
+```bash 
+kubectl get services -n kube-system
+```
+
+## LAB
+หากต้องการจะ Apply คำสั่งจาก `.yaml` เพื่อสร้าง Container
+```bash
+kubectl apply -f <pathTofile>
+```
+>**Note**: containerPort กำหนด Port ที่คล้าย ๆ การทำ EXPOSE ใน Dockerfile
+
+โดยหากต้องการตรวจสอบ Pods ทั้งหมดต้องใช้ 
+```bash
+kubectl get pods
+```
+หากต้องการตรวจสอบการทำงานของ Pods
+```bash
+kubectl describe pod <podname>
+```
+ตรวจสอบ log ของ Container
+```bash
+kubectl logs <namespace> -c <name_container>
+```
+ลบ Pods สามารถลบได้สองแบบ
+```bash
+kubectl delete pod <name_pod>
+kubectl delete pod --all
+```
+หากต้องการสร้าง Service ให้ Container จากการทำ `.yaml`
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: grade-submission-api
+  labels:
+    app.kubernetes.io/name: grade-submission
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/instance: grade-submission-api
+spec:
+  containers:
+  - name: grade-submission-api
+    image: rslim087/kubernetes-course-grade-submission-api:stateless
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "128m"
+      limits:
+        memory: "128Mi"
+    ports:
+      - containerPort: 3000
+```
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: grade-submission-api
+spec:
+  selector:
+    app.kubernetes.io/instance: grade-submission-api
+  ports:
+  - port: 3000
+    targetPort: 3000
+```
+จะเห็นว่า selector ดึงมาจากอันเดียวกันกับ Container
+
+หากต้องการตรวจสอบ Service ของ Pods
+```bash
+kubectl describe service <podname>
+```
+และเมื่อต้องการลบ service เราสามารถใช้
+```bash
+kubectl delete service <name_service>
+kubectl delete svc --all
+```
+เราสามารถดู IP ที่ Minikube ใช้ได้โดยใช้
+```bash
+minikube ip
+minikube service grade-submission-portal
+kubectl get nodes -o wide
+```
