@@ -191,11 +191,10 @@ cd   02_GradeSubmissionSystem_pod
    kubectl logs grade-submission-api -c grade-submission-api
    ```
 
- check inside grade-submission-portal
-  
-  ```
-      kubectl logs grade-submission-portal -c grade-submission-portal
-  ```
+    check inside grade-submission-portal
+    ```
+    kubectl logs grade-submission-portal -c grade-submission-portal
+    ```
 
 
 
@@ -217,7 +216,7 @@ These specifications are used in the resource requests and limits sections of th
 **Verify that the pods are running:
 
 ```
-   kubectl get pods
+kubectl get pods
 ```
 
 ```
@@ -228,21 +227,21 @@ kubectl delete pod grade-submission-portal
 
 - To remove all deployed pods at once, use the following command:
 
-** create pod
+**create pod
 ```
-   kubectl apply -f grade-submission-api-pod.yaml
-   kubectl apply -f grade-submission-portal-pod.yaml
+kubectl apply -f grade-submission-api-pod.yaml
+kubectl apply -f grade-submission-portal-pod.yaml
 ```
 **Verify that the pods are running:
 ```
-   kubectl get pods
+kubectl get pods
 ```
 
-** delete all pod
+**delete all pod
 ```
 kubectl delete pod --all
 ```
 
 ```
-   kubectl get pods
+kubectl get pods
 ```
