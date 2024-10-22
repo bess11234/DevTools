@@ -354,11 +354,9 @@ docker run ubuntu sh -c "echo 'Hello' && echo 'World' && echo `pwd`"
     - ใช้งานได้น้อยกว่า
     - Boot up น้อย
 
-ง่าย ๆ คือ Docker เล็ก เร็ว มีประสิทธิภาพ แต่การใช้งานจำกัด Virtual Machine ตรงกันข้าม
-
-Docker daemon คือตัวจัดการให้ภายในเครื่องเราเมื่อมีการดึงข้อมูลจาก Registry จะดูว่าข้อมูลเราตรงไหม
-
-Dockerfile คือ File ที่กำหนดคำสั่ง หรือ Image ในการสร้าง Docker Image ก็คือเอาไว้ Custom image นั้นแหละ
+1. ง่าย ๆ คือ Docker เล็ก เร็ว มีประสิทธิภาพ แต่การใช้งานจำกัด Virtual Machine ตรงกันข้าม
+1. Docker daemon คือตัวจัดการให้ภายในเครื่องเราเมื่อมีการดึงข้อมูลจาก Registry จะดูว่าข้อมูลเราตรงไหม
+1. Dockerfile คือ File ที่กำหนดคำสั่ง หรือ Image ในการสร้าง Docker Image ก็คือเอาไว้ Custom image นั้นแหละ
 
 ## Command
 Run container
@@ -403,14 +401,14 @@ docker run -d -p 8083:80 -v ${PWD}/web_demo:/usr/share/nginx/html:ro nginx
 ```python
 docker ps
 docker stop <Names> # Names ของ Container เปลี่ยน Status เป็น Exited (0)
-docker stop ($docker ps -aq) # หยุด Containers ทั้งหมด
+docker stop $(docker ps -aq) # หยุด Containers ทั้งหมด
 ```
 
 ## Remove Containers
 ```python
 docker ps
 docker rm <Names> # ลบ Containers
-docker rm ($docker ps -aq) # ลบ Containers ทั้งหมด
+docker rm $(docker ps -aq) # ลบ Containers ทั้งหมด
 docker container prune -f # ลบ Containers ที่มี Status Exited (0) หรือก็คือหยุด
 ```
 
@@ -423,18 +421,19 @@ docker images # ดู Images ทั้งหมดใน Docker
 ```python
 docker rmi <image_repository> # ดู repository ได้จาก `docker images`
 docker rmi -f $(docker images -aq) # ลบ Image ทั้งหมด
-docker rmi prune -f # ลบ Image ที่ไม่ได้ใช้
+docker image prune -f # ลบ Image ที่ไม่ได้ใช้
 ```
 
 ## Docker command
 ```python
 docker pull <image> # image อย่าง ubuntu
 docker build -t <nameOFimage> <pathtoDockerfile> # สร้าง Images ผ่าน Dockerfile
-docker run -it <image> [<command_exec[sh, bash, /bin/bash, zsh, ..]>]
-docker run <image> # Create container from images and run on current process
-docker run -d <image> # Create container from images and run on backgroud process
+docker run -it <image> [<command_exec[sh, bash, /bin/bash, zsh, ..]>] # สร้างเข้าไปที่ service นี้
+docker run <image> # Create container from images and run on current process (attach mode)
+docker run -d <image> # Create container from images and run on backgroud process (detach mode)
 docker ps -a # Show containers
 docker exec <container_name> <run_command> # อย่าง Container_name นั้นมี Image เป็น Ubuntu; run_command คือคำสั่งที่จะรันใน container นั้น โดย status ต้องเป็น UP
+docker exec -it <container> [<command_exec[sh, bash, /bin/bash, zsh, ..]>] # เข้าไปที่ service นี้หากสถานะไม่ใช่ Exited(0)
 docker inspect <cotainer_name> # ส่อง Container นั้น ๆ ว่ามี IP, Name, State, Path
 docker logs <container_name> # ส่อง Container ว่าใช้ Command Line อะไรบ้าง และเกิดผลลัพท์อะไร
 ```
@@ -455,7 +454,7 @@ HTTP Methods
 - GET   : retrive an existing resource (read only)
 - POST  : create a new resource/send information
 - PUT   : update an existing resource
-- PATCH : partically update an existing resoure
+- PATCH : partically update an existing resource
 - DELETE: delete a resource
 
 HTTP status code
@@ -471,8 +470,14 @@ CMD # ทำคำสั่งหลัง Run Build เสร็จ
 ```
 
 ## Tips
-```python
-เมื่อมีการรันไฟล์ Container ที่ Image มี Dockerfile ควรดู Port ที่เขียนไว้ด้วย เพราะเมื่อทำการ docker run -p <อะไรก็ได้>:<ตาม Dockerfile>
+- เมื่อมีการรันไฟล์ Container ที่ Image มี Dockerfile ควรดู Port ที่เขียนไว้ด้วย เพราะเมื่อทำการ docker run -p <อะไรก็ได้>:<ตาม Dockerfile>
+- และ Dockerfile ที่ EXPOSE ไว้ต้องตรงกับที่โค้ด Export มา
+
+# Week 9
+เราสามารถใช้การลบ Volumn กับ Network ได้โดยใช้คำสั่ง
+```bash
+docker volume rm $(docker volume ls -q)  
+docker network prune -f
 ```
 
 # Week 10
@@ -480,7 +485,8 @@ CMD # ทำคำสั่งหลัง Run Build เสร็จ
 ```py
 docker restart <container> # ใช้เพื่อทำการรี Container
 docker network # Bride (Default), None สร้าง Network เพื่อสร้าง Connection กับ Container
-docker run --network <network> # ใช้เพื่อสร้าง Container และ Assign network
+docker network create <name_network> # ชื่อของ Network
+docker run --network/--net <network> # ใช้เพื่อสร้าง Container และ Assign network
 ```
 
 ## Tips
@@ -528,7 +534,7 @@ docker network ls
 
 เมื่อทำการ Inspect จะได้ข้อมูล network ด้วย
 ```py
-docker inspect <container
+docker inspect <container>
 ....
 "Networks": {
     "bridge": {
@@ -716,23 +722,28 @@ docker volume prune
 ### Lab 5
 เมื่อทำเสร็จ Compose เสร็จแล้วจะทำให้เราสามารถ Deploy เข้า Kubernetes ได้
 
+## TIPS
+- หากใช้ docker compose ในการรัน docker containter ไม่จำเป็นต้องใส่ network ก็ได้ เพราะจะถือว่า service ที่อยู่ในนั้นสามารถเชื่อมกันได้
+- `docker run --rm` จะเป็น Clean up container และลบไฟล์ System หลังจากที่มี Container แล้ว
+
 # Week 12
-- เมื่อทำ `docker compose up` จะมีการเช็คไฟล์ .env ให้อยู่แล้ว
+- เมื่อทำ `docker compose up` จะมีการเช็คไฟล์ .env ให้อยู่แล้ว เราสามารถใช้ ${ตัวแปร}
 - เมื่อเราต้องการให้เป็น Backgroud process ต้องใช้คำสั่ง `docker compose up -d`
 
 # Week 13
 DevOpv เป็นอาชีพที่ทำทั้ง Deveplop และ Operation โดยจะทำทั้ง Development และ Deployment
 - ทุกอย่างเป็นแบบ Automate project
 - Deploy เรื่อย ๆ แทนการ Deploy ทีเดียวใหญ่ ๆ
-- Rome ค่อย ๆ สร้าง
+- Rome ค่อย ๆ สร้าง (กรุงโรมไม่ได้สร้างเสร็จได้ในวันเดียว แต่หากอาจารย์ต้องการก็ต้องเสร็จ)
 
 ## DevOps Phase
 ![alt text](./images/week12_1.png)
 
 CI (Continuous Intregration)
+
 CD มีสองความหมาย (ออกสอบ)
 - Continuous Delivery -- Maunal Approval
-- COntinuous Deployment
+- Continuous Deployment
 
 ## DevOps Tools
 ![alt text](./images/week12_2.png)
@@ -778,7 +789,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ### First Jenkins Pipeline
 ```py
 pipeline {
-    agent any  // Execute on any available Jenkins agent # ใครจะรันก็ได้
+    agent any  // Execute on any available Jenkins agent # ใครจะรันก็ได้ น่าจะหมายถึง user ใน jenkins
 
     stages {
         stage('Hello World') {
@@ -946,7 +957,7 @@ spec:
 - **Rolling Update**: หากมีการอัพเดท App ตัว Kubernetes จะแจก Update เข้าไปแต่ละ Node แล้ว App เก่าที่มีอยู่เดิมใน Node จะถูกลบ และก็ค่อยไป Update อีก Node เรื่อย ๆ
 - เพราะฉะนั้น Kubernete แทบจะเป็น **Zero downtime**
 
-### Services (สอบแค่ 1-2)
+### Services (สอบแค่ 1, 2)
 1. NodePort
     - เอาไว้ออก Internet
 2. CluterIP
@@ -979,7 +990,7 @@ kubectl get services -n kube-system
 ```
 ตรวจสอบ deployments ทั้งหมดของ namespace
 ```bash 
-kubectl get services -n kube-system
+kubectl get deployments -n kube-system
 ```
 
 ## LAB
@@ -1031,7 +1042,7 @@ spec:
 ```
 ```yaml
 apiVersion: v1
-kind: Service
+kind: Service # อันนี้
 metadata:
   name: grade-submission-api
 spec:
@@ -1041,7 +1052,7 @@ spec:
   - port: 3000
     targetPort: 3000
 ```
-จะเห็นว่า selector ดึงมาจากอันเดียวกันกับ Container
+- จะเห็นว่า selector ดึงมาจากอันเดียวกันกับ Container
 
 หากต้องการตรวจสอบ Service ของ Pods
 ```bash
@@ -1058,3 +1069,5 @@ minikube ip
 minikube service grade-submission-portal
 kubectl get nodes -o wide
 ```
+ภายในแลปเราต้องใช้ VScode ในการเชื่อมเข้าไปทำใน instance แล้วกดที่ VScode เพื่อสร้างช่องทาง port
+![alt text](images/week15_1.png)
