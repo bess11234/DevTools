@@ -471,7 +471,7 @@ CMD # ทำคำสั่งหลัง Run Build เสร็จ
 
 ## Tips
 - เมื่อมีการรันไฟล์ Container ที่ Image มี Dockerfile ควรดู Port ที่เขียนไว้ด้วย เพราะเมื่อทำการ docker run -p <อะไรก็ได้>:<ตาม Dockerfile>
-- และ Dockerfile ที่ EXPOSE ไว้ต้องตรงกับที่โค้ด Export มา
+- และ Dockerfile ที่ EXPOSE ไว้ต้องตรงกับที่โค้ด Production Run port มา
 
 # Week 9
 เราสามารถใช้การลบ Volumn กับ Network ได้โดยใช้คำสั่ง
@@ -675,7 +675,7 @@ docker run cmd-entrypoint-example "Custom message with both CMD and ENTRYPOINT"
 ### Lab 2
 เมื่อต้องการ Copy image และแก้ชื่อกับ Tag ทำเพื่อให้สร้าง Push เข้า Registry ได้ (Dockerhub) โดยต้องมีรูปแบบ `<username>/<image:tag>`
 ```
-docker tag <image:tag> <new:tag>
+docker tag <image:tag> <new_image:tag>
 docker tag <image:tag> <username>/<image:tag>
 ```
 
@@ -731,7 +731,7 @@ docker volume prune
 - เมื่อเราต้องการให้เป็น Backgroud process ต้องใช้คำสั่ง `docker compose up -d`
 
 # Week 13
-DevOpv เป็นอาชีพที่ทำทั้ง Deveplop และ Operation โดยจะทำทั้ง Development และ Deployment
+DevOpv เป็นอาชีพที่ทำทั้ง Development และ Operation โดยจะทำทั้ง Development และ Deployment
 - ทุกอย่างเป็นแบบ Automate project
 - Deploy เรื่อย ๆ แทนการ Deploy ทีเดียวใหญ่ ๆ
 - Rome ค่อย ๆ สร้าง (กรุงโรมไม่ได้สร้างเสร็จได้ในวันเดียว แต่หากอาจารย์ต้องการก็ต้องเสร็จ)
@@ -949,6 +949,11 @@ spec:
         memory: "128Mi"
 ```
 
+### Overall reviews
+- Kubernetes Master ควบคุม Kubernetes Slave (Worker) หลาย ๆ ตัว โดยมันจะส่ง Request และ Worker จะตอบ States
+- แต่ละ Node (คิดว่า Worker) มี >= 1 Pod
+- แต่ละ Pod มี >= 1 Container
+
 ### Deployment and replica
 - เขาออกแบบมาเพื่อความทนทาน และทำ Load Balancer (Kebernetes)
 - ตรวจสอบ Traffic เพื่อแจก Load
@@ -972,9 +977,21 @@ spec:
 - selector เอา app, label มาใส่ได้เลย (สำหรับ service)
 
 ## Command
+เริ่มใช้งาน Kubernetes
+```bash
+minikube start --driver=docker
+```
+ดู version
+```bash
+kubectl version
+```
 ตรวจสอบ namespace ที่รันอยู่ทั้งหมด
 ```bash
 kubectl get namespace
+```
+ดู node ทั้งหมด
+```bash
+kubectl get node
 ```
 ตรวจสอบ pods ทั้งหมดทุก ๆ namespace
 ```bash
