@@ -731,7 +731,7 @@ docker volume prune
 - เมื่อเราต้องการให้เป็น Backgroud process ต้องใช้คำสั่ง `docker compose up -d`
 
 # Week 13
-DevOpv เป็นอาชีพที่ทำทั้ง Development และ Operation โดยจะทำทั้ง Development และ Deployment
+DevOpv เป็นอาชีพที่ทำทั้ง Develop และ Operation โดยจะทำทั้ง Development และ Deployment
 - ทุกอย่างเป็นแบบ Automate project
 - Deploy เรื่อย ๆ แทนการ Deploy ทีเดียวใหญ่ ๆ
 - Rome ค่อย ๆ สร้าง (กรุงโรมไม่ได้สร้างเสร็จได้ในวันเดียว แต่หากอาจารย์ต้องการก็ต้องเสร็จ)
@@ -786,7 +786,13 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ### Localhost
 สามารถเข้า Service ได้ที่ Port 8080
 
-### First Jenkins Pipeline
+## ADD CREDENTIALS
+- SSH-Credential สำหรับ Jenkins ต้องมีการใส่ Username ของ Instance นั้น, Private key โดยนำ Public key ไปให้ Instance นั้น
+- GitHub/DockerHub-Credential ต้องใส่ Username ของ Github โดยให้ Password เป็น Token ที่ Generate จาก GitHub Develop
+
+มันจะได้ใช้ตอนทำ Pipeline และมีการใช้ SCM (Git) จะให้ระบุ Credential
+
+## First Jenkins Pipeline
 ```py
 pipeline {
     agent any  // Execute on any available Jenkins agent # ใครจะรันก็ได้ น่าจะหมายถึง user ใน jenkins
@@ -800,11 +806,11 @@ pipeline {
     }
 }
 ```
-### PERMISSION DENIED
+## PERMISSION DENIED
 หากเกิดขึ้นต้องลอง `sudo reboot` แล้วรอเวลาให้ Instance reboot
 ![alt text](./images/week12_4.png)
 
-### Authenticate Jenkins
+## Authenticate Jenkins
 ```py
 Username: bess11234
 Password: Ab123456*
@@ -973,7 +979,7 @@ spec:
 - port: Port ที่จะเชื่อมเข้ามายัง Service
 - targetPort: Port ของ Container ข้างใน
 - nodePort: Port ที่ข้างนอกเชื่อมมายัง Service
-> **Note**: ถ้าไม่อยากให้งงก็ตั้งให้ port กั targetPort เป็นอันเดียวกัน
+> **Note**: ถ้าไม่อยากให้งงก็ตั้งให้ port กับ targetPort เป็นอันเดียวกัน
 - selector เอา app, label มาใส่ได้เลย (สำหรับ service)
 
 ## Command
